@@ -1,0 +1,10 @@
+﻿[mode]
+mode = Mainline
+
+[build]
+build-number = 0
+
+[branches]
+main = { version = 1.0.0 }
+feature = { increment = Minor }
+hotfix = { increment = Patch }

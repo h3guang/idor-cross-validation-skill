@@ -1,0 +1,91 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "交叉验证最终报告",
+  "type": "object",
+  "required": ["validation_time", "confirmed", "suspected", "summary"],
+  "properties": {
+    "validation_time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "total_vulnerabilities": {"type": "integer"},
+    "confirmed": {"type": "integer"},
+    "suspected": {"type": "integer"},
+    "needs_review": {"type": "integer"},
+    "false_positives_filtered": {"type": "integer"},
+    "summary": {
+      "type": "object",
+      "properties": {
+        "critical": {"type": "integer"},
+        "high": {"type": "integer"},
+        "medium": {"type": "integer"},
+        "low": {"type": "integer"}
+      }
+    },
+    "confirmed_vulnerabilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "endpoint": {"type": "string"},
+          "type": {"type": "string"},
+          "glm_analysis": {"type": "string"},
+          "deepseek_analysis": {"type": "string"},
+          "combined_confidence": {"type": "number"},
+          "severity": {"type": "string"},
+          "poc": {"type": "string"},
+          "fix_suggestion": {"type": "string"}
+        }
+      }
+    },
+    "suspected_vulnerabilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "endpoint": {"type": "string"},
+          "discovered_by": {"type": "string"},
+          "confidence": {"type": "number"},
+          "reason": {"type": "string"},
+          "recommendation": {"type": "string"}
+        }
+      }
+    },
+    "needs_review_vulnerabilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "endpoint": {"type": "string"},
+          "reason": {"type": "string"},
+          "priority": {"type": "string"}
+        }
+      }
+    },
+    "platform_comparison": {
+      "type": "object",
+      "properties": {
+        "glm": {
+          "type": "object",
+          "properties": {
+            "total": {"type": "integer"},
+            "unique": {"type": "integer"},
+            "accuracy": {"type": "number"}
+          }
+        },
+        "deepseek": {
+          "type": "object",
+          "properties": {
+            "total": {"type": "integer"},
+            "unique": {"type": "integer"},
+            "accuracy": {"type": "number"}
+          }
+        }
+      }
+    },
+    "overall_accuracy": {"type": "number"}
+  }
+}

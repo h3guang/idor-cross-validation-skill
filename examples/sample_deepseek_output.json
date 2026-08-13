@@ -1,0 +1,36 @@
+﻿{
+  "platform": "DeepSeek",
+  "scan_time": "2026-08-14T10:30:00Z",
+  "target": "https://api.example.com",
+  "scanned_apis": 45,
+  "test_accounts": {
+    "admin": "admin@example.com",
+    "user1": "user1@example.com",
+    "user2": "user2@example.com"
+  },
+  "vulnerabilities": [
+    {
+      "id": "DS-001",
+      "type": "idor_parameter_tampering",
+      "category": "授权漏洞",
+      "endpoint": "GET /api/users/{userId}",
+      "method": "GET",
+      "technical_analysis": "userId为自增数字，无所有权校验",
+      "test_method": "变异测试: userId=1001→1002",
+      "request": "GET /api/users/1002 Cookie: user1_session",
+      "response_status": 200,
+      "response_data": "返回他人用户数据",
+      "poc": "curl -X GET https://api.example.com/api/users/1002 -H Cookie: user1_session",
+      "severity": "Critical",
+      "confidence": 0.95,
+      "fix_suggestion": "添加 @PostAuthorize 注解"
+    }
+  ],
+  "summary": {
+    "critical": 1,
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "total": 1
+  }
+}

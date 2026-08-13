@@ -1,0 +1,39 @@
+﻿{
+  "platform": "GLM",
+  "scan_time": "2026-08-14T10:30:00Z",
+  "target": "https://api.example.com",
+  "scanned_apis": 45,
+  "test_accounts": {
+    "admin": "admin@example.com",
+    "user1": "user1@example.com",
+    "user2": "user2@example.com"
+  },
+  "vulnerabilities": [
+    {
+      "id": "GLM-001",
+      "type": "horizontal_escalation",
+      "category": "授权漏洞",
+      "endpoint": "GET /api/users/{userId}",
+      "method": "GET",
+      "business_analysis": "用户资料应仅本人可见，但userId可遍历",
+      "test_method": "使用user1访问user2的资料(userId=1002)",
+      "request": "GET /api/users/1002 Cookie: user1_session",
+      "response_status": 200,
+      "response_data": "返回user2的完整资料，含手机号、邮箱",
+      "severity": "Critical",
+      "confidence": 0.90,
+      "evidence": {
+        "sensitive_fields": ["phone", "email", "address"],
+        "response_size": 1245
+      },
+      "fix_suggestion": "添加资源所有者校验"
+    }
+  ],
+  "summary": {
+    "critical": 1,
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "total": 1
+  }
+}
